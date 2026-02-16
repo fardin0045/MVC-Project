@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="Book.DataAccess/Book.DataAccess.csproj" Id="f20f35ab-7d1f-4183-83ea-81ee81ec0cad" />
+  <Project Path="Book.Models/Book.Models.csproj" Id="c6e52b82-2e11-4427-932e-9552651b2d9c" />
+  <Project Path="Book.Utility/Book.Utility.csproj" Id="b928f842-591f-4765-a04b-a824551ff020" />
   <Project Path="BookWeb/BookWeb.csproj" />
 </Solution>
