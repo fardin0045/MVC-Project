@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Book.DataAccess.Repository.IRepository
 {
-    internal interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class
     {
         // T - Category  or any other generic model we want to
         //perform CRUD operations 
