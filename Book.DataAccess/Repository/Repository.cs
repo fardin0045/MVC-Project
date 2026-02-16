@@ -8,7 +8,7 @@ using System.Text;
 using static System.Net.WebRequestMethods;
 namespace Book.DataAccess.Repository
 {
-    //Here Irepository is Inherit
+    //Here Irepository is Inherit here T is the model name Like category 
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _dbContext;
