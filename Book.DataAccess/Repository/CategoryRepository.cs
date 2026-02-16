@@ -16,10 +16,7 @@ namespace Book.DataAccess.Repository
                 _dbContext = dbContext;
         }
 
-        public void Save()
-        {
-           _dbContext.SaveChanges();
-        }
+       
 
         public void Update(Category obj)
         {
