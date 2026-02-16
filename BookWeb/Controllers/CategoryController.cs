@@ -1,4 +1,5 @@
 ﻿using Book.DataAccess.Data;
+using Book.DataAccess.Repository.IRepository;
 using Book.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,10 +7,11 @@ namespace BookWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
-        public CategoryController(ApplicationDbContext dbContext)
+        //private readonly ApplicationDbContext dbContext;
+        private readonly ICategoryRepository _categoryRepo;
+        public CategoryController(ICategoryRepository dbContext)
         {
-            this.dbContext = dbContext;
+            this._categoryRepo = dbContext;
         }
         //Create Method
         [HttpGet]
@@ -26,8 +28,8 @@ namespace BookWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                dbContext.Categories.Add(obj);
-                dbContext.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category Created Successfully";
                 return RedirectToAction("List", "Category");
             }
@@ -36,7 +38,7 @@ namespace BookWeb.Controllers
         //For reaad 
         public IActionResult List()
         {
-            List<Category> list = dbContext.Categories.ToList();
+            List<Category> list = _categoryRepo.GetAll().ToList();
             return View(list);
         }
 
@@ -45,9 +47,9 @@ namespace BookWeb.Controllers
         public IActionResult Edit(int? id)
         {
 
-            Category? category = dbContext.Categories.Find(id);
-            Category? Category1 = dbContext.Categories.FirstOrDefault(u => u.Id== id);
-            Category? category2 = dbContext.Categories.Where(u => u.Id ==id).FirstOrDefault();
+            Category? category = _categoryRepo.Get(u=>u.Id==id);
+            //Category? Category1 = _categoryRepo.Categories.FirstOrDefault(u => u.Id== id);
+            //Category? category2 = _categoryRepo.Categories.Where(u => u.Id ==id).FirstOrDefault();
             if (category == null)
             {
                 return NotFound();
@@ -61,22 +63,22 @@ namespace BookWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                dbContext.Update(obj);
-                dbContext.SaveChanges();
+                _categoryRepo.Update(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category Edited Successfully";
                 return RedirectToAction("List", "Category");
             }
             return View();
         }
         //For delete
-        [HttpPost]
-        public IActionResult Delete(Category obj)
+        [HttpPost, ActionName("Delete")]
+        public IActionResult Delete(int? id)
         {
-          Category? category = dbContext.Categories.Find(obj.Id);
-            if(category != null)
+          Category? category = _categoryRepo.Get(u => u.Id == id);
+            if (category != null)
             {
-                dbContext.Categories.Remove(category);
-                dbContext.SaveChanges();
+                _categoryRepo.Remove(category);
+                _categoryRepo.Save();
                 TempData["success"] = "Category Deleted Successfully";
                 return RedirectToAction("List", "Category");
             }
@@ -86,3 +88,4 @@ namespace BookWeb.Controllers
 
 //Chaging the Mvc to N tier architecture 
 }
+// must register the service in program.cs dependency injection
