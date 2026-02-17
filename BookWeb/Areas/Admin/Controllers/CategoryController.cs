@@ -4,10 +4,12 @@ using Book.DataAccess.Repository.IRepository;
 using Book.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookWeb.Controllers
+namespace BookWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
+       
         //private readonly ApplicationDbContext dbContext;
         private readonly IUnitOfWork _unitOfWork;
         public CategoryController(IUnitOfWork unitOfWork)
