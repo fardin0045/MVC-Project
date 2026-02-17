@@ -3,6 +3,7 @@ using Book.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260217142436_SeedProductsTable")]
+    partial class SeedProductsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +88,7 @@ namespace BookWeb.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 6,
+                            Id = 1,
                             Author = "Billy Spark",
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                             ISBN = "SWD9999001",
@@ -97,7 +100,7 @@ namespace BookWeb.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 2,
                             Author = "Nancy Hoover",
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                             ISBN = "CAW777777701",
@@ -109,7 +112,7 @@ namespace BookWeb.Migrations
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 3,
                             Author = "Julian Button",
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                             ISBN = "RITO5555501",
@@ -121,7 +124,7 @@ namespace BookWeb.Migrations
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 4,
                             Author = "Abby Muscles",
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                             ISBN = "WS3333333301",
@@ -133,7 +136,7 @@ namespace BookWeb.Migrations
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 5,
                             Author = "Ron Parker",
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                             ISBN = "SOTJ1111111101",
@@ -145,7 +148,7 @@ namespace BookWeb.Migrations
                         },
                         new
                         {
-                            Id = 11,
+                            Id = 6,
                             Author = "Laura Phantom",
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt.",
                             ISBN = "FOT000000001",

@@ -1,4 +1,5 @@
 ﻿using Book.DataAccess.Data;
+using Book.DataAccess.Repository.IRepository;
 using Book.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,10 @@ namespace BookWeb.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         //for database 
-        private readonly ApplicationDbContext _dbProduct;
-        public ProductController(ApplicationDbContext dbProdcut)
+        private readonly IUnitOfWork _unitOfWork;
+        public ProductController(IUnitOfWork unitOfWork)
         {
-            _dbProduct = dbProdcut;
+            _unitOfWork = unitOfWork;
         }
 
         //for create product
@@ -26,8 +27,8 @@ namespace BookWeb.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-                _dbProduct.Add(obj);
-                _dbProduct.SaveChanges();
+                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Created Success Fully";
                 return RedirectToAction("List", "Product");
             }
@@ -35,17 +36,22 @@ namespace BookWeb.Areas.Admin.Controllers
 
         }
         //For read data
-        public IActionResult List(Product obj)
+        public IActionResult List()
         {
-            List<Product> products = _dbProduct.Products.ToList();
-            return View(products);
+            List<Product> list = _unitOfWork.Product.GetAll().ToList();
+            return View(list);
         }
+        //public IActionResult List(Product obj)
+        //{
+        //    List<Product> products = _unitOfWork.Products.GetAll.ToList();
+        //    return View(products);
+        //}
         //for edit 
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Product? product = _dbProduct.Products.Find(id);
+            Product? product = _unitOfWork.Product.Get(u=> u.Id==id);
             if (product == null)
             {
                 return NotFound();
@@ -57,8 +63,8 @@ namespace BookWeb.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbProduct.Update(obj);
-                _dbProduct.SaveChanges();
+                _unitOfWork.Product.Update(obj);
+                _unitOfWork.Save();
 
                 TempData["success"] = "Product Edited SuccessFully";
 
@@ -68,14 +74,14 @@ namespace BookWeb.Areas.Admin.Controllers
             return View();
         }
         //For delete 
-        [HttpPost]
-        public IActionResult Delete(Product obj) 
+        [HttpPost, ActionName("Delete")]
+        public IActionResult Delete(int? id) 
         {
-            Product? product = _dbProduct.Products.Find(obj.Id);
+            Product? product = _unitOfWork.Product.Get(u=> u.Id ==id);
             if(product != null)
             {
-                _dbProduct.Products.Remove(product);
-                _dbProduct.SaveChanges();
+                _unitOfWork.Product.Remove(product);
+                _unitOfWork.Save();
 
                 TempData["success"] = "Product Deleted SuccessFully";
                 return RedirectToAction("List", "Product");
