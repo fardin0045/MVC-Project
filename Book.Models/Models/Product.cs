@@ -21,8 +21,7 @@ namespace Book.Models.Models
 
         [Required]
         public string Author { get; set; }
-
-        [Required]
+        
         [DisplayName("List Price")]
         [Range(1,1000)]
         public double ListPrice {  get; set; }
