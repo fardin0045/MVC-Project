@@ -67,5 +67,21 @@ namespace BookWeb.Areas.Admin.Controllers
             }
             return View();
         }
+        //For delete 
+        [HttpPost]
+        public IActionResult Delete(Product obj) 
+        {
+            Product? product = _dbProduct.Products.Find(obj.Id);
+            if(product != null)
+            {
+                _dbProduct.Products.Remove(product);
+                _dbProduct.SaveChanges();
+
+                TempData["success"] = "Product Deleted SuccessFully";
+                return RedirectToAction("List", "Product");
+
+            }
+            return View();
+        }
        }
 }
