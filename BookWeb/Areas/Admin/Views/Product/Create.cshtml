@@ -19,7 +19,7 @@
                 <!-- Card Body -->
                 <div class="card-body p-4">
 
-                    <form method="post">
+                    <form method="post" class="row" enctype="multipart/form-data">
 
                         <div class="mb-3">
                             <label asp-for="Title" class="form-label fw-semibold"></label>
@@ -73,10 +73,11 @@
                             </select>
                             <span asp-validation-for="CategoryId" class="text-danger small"></span>
                         </div>
+                        @* //for file choose image  *@
                         <div class="mb-4">
                             <label asp-for="ImageUrl" class="form-label fw-semibold"></label>
-                            <input asp-for="ImageUrl" class="form-control" placeholder="Enter ImageUrl" />
-                            <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                            <input type="file" class="form-control" placeholder="Enter ImageUrl" />
+                            
                         </div>
                         <hr />
 

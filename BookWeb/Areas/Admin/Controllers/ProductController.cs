@@ -31,17 +31,7 @@ namespace BookWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Product obj)
         {
-            // 🔥 DEBUG BLOCK (eta ekhane diba)
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values
-                    .SelectMany(v => v.Errors);
-
-                foreach (var error in errors)
-                {
-                    Console.WriteLine(error.ErrorMessage);
-                }
-            }
+           
 
             if (ModelState.IsValid)
             {
