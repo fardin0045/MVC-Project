@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Book.Models.Models
 {
@@ -13,8 +10,9 @@ namespace Book.Models.Models
         public int Id { get; set; }
 
         [Required]
-        [DisplayName("Title ")]
+        [DisplayName("Title")]
         public string Title { get; set; }
+
         public string Description { get; set; }
 
         [Required]
@@ -22,26 +20,31 @@ namespace Book.Models.Models
 
         [Required]
         public string Author { get; set; }
-        
+
         [DisplayName("List Price")]
-        [Range(1,1000)]
-        public double ListPrice {  get; set; }
+        [Range(1, 1000)]
+        public double ListPrice { get; set; }
 
         [Required]
         [DisplayName("Price for 1-50")]
-        [Range(1,1000)]
-        public double Price {  get; set; }
+        [Range(1, 1000)]
+        public double Price { get; set; }
 
         [Required]
         [DisplayName("Price for 50+")]
-        [Range(1,1000)]
-        public double Price50 {  get; set; }
+        [Range(1, 1000)]
+        public double Price50 { get; set; }
+
         [Required]
         [DisplayName("Price for 100+")]
-        [Range(1,1000)]
-        public double Price100 {  get; set; }
-        //Foregin key
+        [Range(1, 1000)]
+        public double Price100 { get; set; }
 
+        // 🔥 Foreign Key
+        [DisplayName("Category")]
+        public int CategoryId { get; set; }
 
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 }

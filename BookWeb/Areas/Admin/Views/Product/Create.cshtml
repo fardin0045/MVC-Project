@@ -62,11 +62,15 @@
                             <input asp-for="Price100" class="form-control" placeholder="Enter Price for 100 unit " />
                             <span asp-validation-for="Price100" class="text-danger small"></span>
                         </div>
-                        @* <div class="mb-4">
+                        <div class="mb-4">
                             <label asp-for="CategoryId" class="form-label fw-semibold"></label>
-                            <input asp-for="CategoryId" class="form-control" placeholder="Enter Category Id" />
+                            <select asp-for="CategoryId"
+                                    asp-items="ViewBag.CategoryList"
+                                    class="form-select">
+                                <option disabled selected>-- Select Category --</option>
+                            </select>
                             <span asp-validation-for="CategoryId" class="text-danger small"></span>
-                        </div> *@
+                        </div>
                         <hr />
 
                         <div class="d-flex justify-content-end gap-2">
