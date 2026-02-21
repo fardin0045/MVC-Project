@@ -31,16 +31,33 @@ namespace BookWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Product obj)
         {
+            // 🔥 DEBUG BLOCK (eta ekhane diba)
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors);
+
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
+
             if (ModelState.IsValid)
             {
-
                 _unitOfWork.Product.Add(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Created Success Fully";
-                return RedirectToAction("List", "Product");
+                TempData["success"] = "Product Created Successfully";
+                return RedirectToAction("List");
             }
-            return View();
 
+            ViewBag.CategoryList = new SelectList(
+                _unitOfWork.Category.GetAll(),
+                "Id",
+                "Name"
+            );
+
+            return View(obj);
         }
         //For read data
         public IActionResult List()
@@ -58,15 +75,21 @@ namespace BookWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Product? product = _unitOfWork.Product.Get(u=> u.Id==id);
+            Product? product = _unitOfWork.Product.Get(u => u.Id == id);
             if (product == null)
             {
                 return NotFound();
             }
+            ViewBag.CategoryList = new SelectList(
+                _unitOfWork.Category.GetAll(),
+                "Id",
+                "Name",
+                product.CategoryId
+                );
             return View(product);
         }
         [HttpPost]
-        public IActionResult Edit (Product obj)
+        public IActionResult Edit(Product obj)
         {
             if (ModelState.IsValid)
             {
@@ -78,14 +101,21 @@ namespace BookWeb.Areas.Admin.Controllers
                 return RedirectToAction("List", "Product");
 
             }
-            return View();
+
+            ViewBag.CategoryList = new SelectList(
+                _unitOfWork.Category.GetAll(),
+                "Id",
+                "Name",
+                obj.CategoryId
+            );
+            return View(obj);
         }
         //For delete 
         [HttpPost, ActionName("Delete")]
-        public IActionResult Delete(int? id) 
+        public IActionResult Delete(int? id)
         {
-            Product? product = _unitOfWork.Product.Get(u=> u.Id ==id);
-            if(product != null)
+            Product? product = _unitOfWork.Product.Get(u => u.Id == id);
+            if (product != null)
             {
                 _unitOfWork.Product.Remove(product);
                 _unitOfWork.Save();
@@ -96,5 +126,5 @@ namespace BookWeb.Areas.Admin.Controllers
             }
             return View();
         }
-       }
+    }
 }
