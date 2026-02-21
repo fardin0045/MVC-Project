@@ -41,9 +41,6 @@ namespace Book.Models.Models
         [Range(1,1000)]
         public double Price100 {  get; set; }
         //Foregin key
-        public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
 
 
     }
