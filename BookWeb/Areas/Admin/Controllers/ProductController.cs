@@ -2,6 +2,7 @@
 using Book.DataAccess.Repository.IRepository;
 using Book.Models.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookWeb.Areas.Admin.Controllers
 {
@@ -19,6 +20,12 @@ namespace BookWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.CategoryList = new SelectList(
+                _unitOfWork.Category.GetAll(),
+                "Id",
+                "Name"
+            );
+
             return View();
         }
         [HttpPost]

@@ -62,6 +62,8 @@
                             <input asp-for="Price100" class="form-control" placeholder="Enter Price for 100 unit " />
                             <span asp-validation-for="Price100" class="text-danger small"></span>
                         </div>
+
+                        @* category drop down for foreign key *@
                         <div class="mb-4">
                             <label asp-for="CategoryId" class="form-label fw-semibold"></label>
                             <select asp-for="CategoryId"
