@@ -2,71 +2,50 @@
 @model Product
 
 <div class="container py-5">
-
     <div class="row justify-content-center">
-        <div class="col-lg-6">
+        <div class="col-xl-10">
 
-            <div class="card border-0 shadow">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
-                <!-- Card Header -->
-                <div class="card-header bg-primary text-white py-3">
-                    <h5 class="mb-0">
-                        <i class="bi bi-folder-plus me-2"></i>
-                        Create Product
-                    </h5>
+                <!-- Header -->
+                <div class="bg-gradient bg-primary text-white p-4">
+                    <h3 class="mb-0">
+                        <i class="bi bi-plus-circle-fill me-2"></i>
+                        Create New Product
+                    </h3>
+                    <small class="opacity-75">Add a new book to your store</small>
                 </div>
 
-                <!-- Card Body -->
-                <div class="card-body p-4">
-                    
-                    <form method="post" class="row" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-10">
-                                <div class="border p-2">
-                                    <div class="mb-3">
+                <div class="card-body p-5">
+
+                    <form method="post" enctype="multipart/form-data">
+
+                        <div class="row g-4">
+
+                            <!-- LEFT SIDE FORM -->
+                            <div class="col-lg-8">
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6">
                                         <label asp-for="Title" class="form-label fw-semibold"></label>
-                                        <input asp-for="Title" class="form-control" placeholder="Enter title" />
+                                        <input asp-for="Title" class="form-control form-control-lg" placeholder="Enter book title" />
                                         <span asp-validation-for="Title" class="text-danger small"></span>
                                     </div>
 
-                                    <div class="mb-4">
-                                        <label asp-for="Description" class="form-label fw-semibold"></label>
-                                        <input asp-for="Description" class="form-control" placeholder="Description" />
-                                        <span asp-validation-for="Description" class="text-danger small"></span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label asp-for="ISBN" class="form-label fw-semibold"></label>
-                                        <input asp-for="ISBN" class="form-control" placeholder="ISBN" />
-                                        <span asp-validation-for="ISBN" class="text-danger small"></span>
-                                    </div>
-                                    <div class="mb-4">
+                                    <div class="col-md-6">
                                         <label asp-for="Author" class="form-label fw-semibold"></label>
-                                        <input asp-for="Author" class="form-control" placeholder="Enter Author name" />
+                                        <input asp-for="Author" class="form-control form-control-lg" placeholder="Author name" />
                                         <span asp-validation-for="Author" class="text-danger small"></span>
                                     </div>
-                                    <div class="mb-4">
-                                        <label asp-for="ListPrice" class="form-label fw-semibold"></label>
-                                        <input asp-for="ListPrice" class="form-control" placeholder="List Price" />
-                                        <span asp-validation-for="ListPrice" class="text-danger small"></span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label asp-for="Price" class="form-label fw-semibold"></label>
-                                        <input asp-for="Price" class="form-control" placeholder="Enter Price for 1-50 unit " />
-                                        <span asp-validation-for="Price" class="text-danger small"></span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label asp-for="Price50" class="form-label fw-semibold"></label>
-                                        <input asp-for="Price50" class="form-control" placeholder="Enter Price for 50++ unit " />
-                                        <span asp-validation-for="Price50" class="text-danger small"></span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <label asp-for="Price100" class="form-label fw-semibold"></label>
-                                        <input asp-for="Price100" class="form-control" placeholder="Enter Price for 100 unit " />
-                                        <span asp-validation-for="Price100" class="text-danger small"></span>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="ISBN" class="form-label fw-semibold"></label>
+                                        <input asp-for="ISBN" class="form-control" placeholder="ISBN number" />
+                                        <span asp-validation-for="ISBN" class="text-danger small"></span>
                                     </div>
 
-                                    @* category drop down for foreign key *@
-                                    <div class="mb-4">
+                                    <div class="col-md-6">
                                         <label asp-for="CategoryId" class="form-label fw-semibold"></label>
                                         <select asp-for="CategoryId"
                                                 asp-items="ViewBag.CategoryList"
@@ -75,35 +54,87 @@
                                         </select>
                                         <span asp-validation-for="CategoryId" class="text-danger small"></span>
                                     </div>
-                                    @* //for file choose image  *@
-                                    <div class="mb-4">
-                                        <label asp-for="ImageUrl" class="form-label fw-semibold"></label>
-                                        <input type="file" asp-for="ImageUrl" name="file" class="form-control" />
 
+                                    <div class="col-12">
+                                        <label asp-for="Description" class="form-label fw-semibold"></label>
+                                        <textarea asp-for="Description"
+                                                  class="form-control"
+                                                  rows="3"
+                                                  placeholder="Short description..."></textarea>
+                                        <span asp-validation-for="Description" class="text-danger small"></span>
                                     </div>
-                                    <hr />
 
-                                    <div class="d-flex justify-content-end gap-2">
-
-                                        <a asp-controller="Product"
-                                           asp-action="List"
-                                           class="btn btn-outline">
-                                            Cancel
-                                        </a>
-
-                                        <button type="submit" class="btn btn-primary px-4">
-                                            Save Product
-                                        </button>
-
+                                    <div class="col-md-3">
+                                        <label asp-for="ListPrice" class="form-label fw-semibold"></label>
+                                        <input asp-for="ListPrice" class="form-control" />
                                     </div>
+
+                                    <div class="col-md-3">
+                                        <label asp-for="Price" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label asp-for="Price50" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price50" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label asp-for="Price100" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price100" class="form-control" />
+                                    </div>
+
                                 </div>
+
                             </div>
-                            <div class="col-2">
-                                @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
-                                {
-                                    <img src="@Model.ImageUrl" width="100px" />
-                                }
+
+                            <!-- RIGHT SIDE IMAGE UPLOAD -->
+                            <div class="col-lg-4">
+
+                                <div class="border rounded-4 p-4 text-center bg-light">
+
+                                    <h6 class="fw-bold mb-3">
+                                        <i class="bi bi-image me-1"></i>
+                                        Product Image
+                                    </h6>
+
+                                    <img id="imagePreview"
+                                         src="https://via.placeholder.com/200x250?text=Preview"
+                                         class="img-fluid rounded-3 shadow-sm mb-3"
+                                         style="max-height:250px; object-fit:cover;" />
+
+                                    <input type="file"
+                                           name="file"
+                                           class="form-control"
+                                           onchange="previewImage(event)" />
+
+                                    <small class="text-muted d-block mt-2">
+                                        Recommended size: 400x500px
+                                    </small>
+
+                                </div>
+
                             </div>
+
+                        </div>
+
+                        <hr class="my-5" />
+
+                        <!-- BUTTONS -->
+                        <div class="d-flex justify-content-end gap-3">
+
+                            <a asp-controller="Product"
+                               asp-action="List"
+                               class="btn btn-outline-secondary btn-lg px-4">
+                                Cancel
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary btn-lg px-5 shadow">
+                                <i class="bi bi-check-circle me-2"></i>
+                                Save Product
+                            </button>
+
                         </div>
 
                     </form>
@@ -114,9 +145,19 @@
 
         </div>
     </div>
-
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('imagePreview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 }
