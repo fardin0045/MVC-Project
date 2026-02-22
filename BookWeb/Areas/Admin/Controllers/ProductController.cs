@@ -96,10 +96,38 @@ namespace BookWeb.Areas.Admin.Controllers
             return View(product);
         }
         [HttpPost]
-        public IActionResult Edit(Product obj)
+        public IActionResult Edit(Product obj, IFormFile? file)
         {
+
             if (ModelState.IsValid)
+
             {
+                //FOr image
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if(file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"Images\product\");
+                    if (!Directory.Exists(productPath))
+                    {
+                        Directory.CreateDirectory(productPath);
+                    }
+                    if (!string.IsNullOrEmpty(obj.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    obj.ImageUrl = @"\Images\product\" + fileName;
+                }
+               
                 _unitOfWork.Product.Update(obj);
                 _unitOfWork.Save();
 
