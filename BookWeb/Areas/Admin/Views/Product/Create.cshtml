@@ -76,7 +76,7 @@
                         @* //for file choose image  *@
                         <div class="mb-4">
                             <label asp-for="ImageUrl" class="form-label fw-semibold"></label>
-                            <input type="file" class="form-control" placeholder="Enter ImageUrl" />
+                            <input type="file" asp-for="ImageUrl" name="file" class="form-control" />
                             
                         </div>
                         <hr />

@@ -48,6 +48,6 @@ namespace Book.Models.Models
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
         [ValidateNever]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

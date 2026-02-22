@@ -11,9 +11,11 @@ namespace BookWeb.Areas.Admin.Controllers
     {
         //for database 
         private readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         //for create product
@@ -29,12 +31,27 @@ namespace BookWeb.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(Product obj, IFormFile? file)
         {
            
 
             if (ModelState.IsValid)
             {
+                //for image path to root wwroot
+
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null) 
+                { 
+                    string fileName= Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"Images\product");
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    obj.ImageUrl = @"\Images\product\" + fileName;
+                }
                 _unitOfWork.Product.Add(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Product Created Successfully";
