@@ -1,89 +1,136 @@
 ﻿@using Book.Models.Models
 @model Product
-@{
 
-}
 <div class="container py-5">
-
     <div class="row justify-content-center">
-        <div class="col-lg-6">
+        <div class="col-xl-10">
 
-            <div class="card border-0 shadow">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
-                <!-- Card Header -->
-                <div class="card-header bg-primary text-white py-3">
-                    <h5 class="mb-0">
-                        <i class="bi bi-folder-plus me-2"></i>
+                <!-- Header -->
+                <div class="bg-warning text-dark p-4">
+                    <h3 class="mb-0">
+                        <i class="bi bi-pencil-square me-2"></i>
                         Edit Product
-                    </h5>
+                    </h3>
+                    <small>Update product information</small>
                 </div>
 
-                <!-- Card Body -->
-                <div class="card-body p-4">
+                <div class="card-body p-5">
 
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
 
-                        <div class="mb-3">
-                            <label asp-for="Title" class="form-label fw-semibold"></label>
-                            <input asp-for="Title" class="form-control" placeholder="Enter title" />
-                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        <!-- Hidden fields -->
+                        <input asp-for="Id" hidden />
+                        <input asp-for="ImageUrl" hidden />
+
+                        <div class="row g-4">
+
+                            <!-- LEFT SIDE FORM -->
+                            <div class="col-lg-8">
+
+                                <div class="row g-3">
+
+                                    <div class="col-md-6">
+                                        <label asp-for="Title" class="form-label fw-semibold"></label>
+                                        <input asp-for="Title" class="form-control form-control-lg" />
+                                        <span asp-validation-for="Title" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="Author" class="form-label fw-semibold"></label>
+                                        <input asp-for="Author" class="form-control form-control-lg" />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="ISBN" class="form-label fw-semibold"></label>
+                                        <input asp-for="ISBN" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="CategoryId" class="form-label fw-semibold"></label>
+                                        <select asp-for="CategoryId"
+                                                asp-items="ViewBag.CategoryList"
+                                                class="form-select">
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label asp-for="Description" class="form-label fw-semibold"></label>
+                                        <textarea asp-for="Description"
+                                                  class="form-control"
+                                                  rows="3"></textarea>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label asp-for="ListPrice" class="form-label fw-semibold"></label>
+                                        <input asp-for="ListPrice" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label asp-for="Price" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label asp-for="Price50" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price50" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label asp-for="Price100" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price100" class="form-control" />
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- RIGHT SIDE IMAGE -->
+                            <div class="col-lg-4">
+
+                                <div class="border rounded-4 p-4 text-center bg-light">
+
+                                    <h6 class="fw-bold mb-3">
+                                        <i class="bi bi-image me-1"></i>
+                                        Product Image
+                                    </h6>
+
+                                    <img id="imagePreview"
+                                         src="@Model.ImageUrl"
+                                         class="img-fluid rounded-3 shadow-sm mb-3"
+                                         style="max-height:250px; object-fit:cover;" />
+
+                                    <input type="file"
+                                           name="file"
+                                           class="form-control"
+                                           onchange="previewImage(event)" />
+
+                                    <small class="text-muted d-block mt-2">
+                                        Leave empty to keep current image
+                                    </small>
+
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="Description" class="form-label fw-semibold"></label>
-                            <input asp-for="Description" class="form-control" placeholder="Description" />
-                            <span asp-validation-for="Description" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="ISBN" class="form-label fw-semibold"></label>
-                            <input asp-for="ISBN" class="form-control" placeholder="ISBN" />
-                            <span asp-validation-for="ISBN" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Author" class="form-label fw-semibold"></label>
-                            <input asp-for="Author" class="form-control" placeholder="Enter Author name" />
-                            <span asp-validation-for="Author" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="ListPrice" class="form-label fw-semibold"></label>
-                            <input asp-for="ListPrice" class="form-control" placeholder="List Price" />
-                            <span asp-validation-for="ListPrice" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Price" class="form-label fw-semibold"></label>
-                            <input asp-for="Price" class="form-control" placeholder="Enter Price for 1-50 unit " />
-                            <span asp-validation-for="Price" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Price50" class="form-label fw-semibold"></label>
-                            <input asp-for="Price50" class="form-control" placeholder="Enter Price for 50++ unit " />
-                            <span asp-validation-for="Price50" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Price100" class="form-label fw-semibold"></label>
-                            <input asp-for="Price100" class="form-control" placeholder="Enter Price for 100 unit " />
-                            <span asp-validation-for="Price100" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="CategoryId" class="form-label fw-semibold"></label>
-                            <select asp-for="CategoryId"
-                                    asp-items="ViewBag.CategoryList"
-                                    class="form-select">
-                                <option value="">-- Select Category --</option>
-                            </select>
-                        </div>
-                        <hr />
+                        <hr class="my-5" />
 
-                        <div class="d-flex justify-content-end gap-2">
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-end gap-3">
 
                             <a asp-controller="Product"
                                asp-action="List"
-                               class="btn btn-outline-secondary">
+                               class="btn btn-outline-secondary btn-lg px-4">
                                 Cancel
                             </a>
 
-                            <button type="submit" class="btn btn-primary px-4">
-                                Save Product
+                            <button type="submit"
+                                    class="btn btn-warning btn-lg px-5 shadow">
+                                <i class="bi bi-check-circle me-2"></i>
+                                Update Product
                             </button>
 
                         </div>
@@ -96,10 +143,19 @@
 
         </div>
     </div>
-
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
 
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('imagePreview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+}
