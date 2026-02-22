@@ -28,7 +28,7 @@ namespace BookWeb.Areas.Admin.Controllers
                 "Name"
             );
 
-            return View();
+            return View(new Product());
         }
         [HttpPost]
         public IActionResult Create(Product obj, IFormFile? file)

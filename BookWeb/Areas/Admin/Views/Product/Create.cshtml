@@ -18,81 +18,92 @@
 
                 <!-- Card Body -->
                 <div class="card-body p-4">
-
+                    
                     <form method="post" class="row" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="border p-2">
+                                    <div class="mb-3">
+                                        <label asp-for="Title" class="form-label fw-semibold"></label>
+                                        <input asp-for="Title" class="form-control" placeholder="Enter title" />
+                                        <span asp-validation-for="Title" class="text-danger small"></span>
+                                    </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Title" class="form-label fw-semibold"></label>
-                            <input asp-for="Title" class="form-control" placeholder="Enter title" />
-                            <span asp-validation-for="Title" class="text-danger small"></span>
-                        </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Description" class="form-label fw-semibold"></label>
+                                        <input asp-for="Description" class="form-control" placeholder="Description" />
+                                        <span asp-validation-for="Description" class="text-danger small"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="ISBN" class="form-label fw-semibold"></label>
+                                        <input asp-for="ISBN" class="form-control" placeholder="ISBN" />
+                                        <span asp-validation-for="ISBN" class="text-danger small"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Author" class="form-label fw-semibold"></label>
+                                        <input asp-for="Author" class="form-control" placeholder="Enter Author name" />
+                                        <span asp-validation-for="Author" class="text-danger small"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="ListPrice" class="form-label fw-semibold"></label>
+                                        <input asp-for="ListPrice" class="form-control" placeholder="List Price" />
+                                        <span asp-validation-for="ListPrice" class="text-danger small"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Price" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price" class="form-control" placeholder="Enter Price for 1-50 unit " />
+                                        <span asp-validation-for="Price" class="text-danger small"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Price50" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price50" class="form-control" placeholder="Enter Price for 50++ unit " />
+                                        <span asp-validation-for="Price50" class="text-danger small"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Price100" class="form-label fw-semibold"></label>
+                                        <input asp-for="Price100" class="form-control" placeholder="Enter Price for 100 unit " />
+                                        <span asp-validation-for="Price100" class="text-danger small"></span>
+                                    </div>
 
-                        <div class="mb-4">
-                            <label asp-for="Description" class="form-label fw-semibold"></label>
-                            <input asp-for="Description" class="form-control" placeholder="Description" />
-                            <span asp-validation-for="Description" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="ISBN" class="form-label fw-semibold"></label>
-                            <input asp-for="ISBN" class="form-control" placeholder="ISBN" />
-                            <span asp-validation-for="ISBN" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Author" class="form-label fw-semibold"></label>
-                            <input asp-for="Author" class="form-control" placeholder="Enter Author name" />
-                            <span asp-validation-for="Author" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="ListPrice" class="form-label fw-semibold"></label>
-                            <input asp-for="ListPrice" class="form-control" placeholder="List Price" />
-                            <span asp-validation-for="ListPrice" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Price" class="form-label fw-semibold"></label>
-                            <input asp-for="Price" class="form-control" placeholder="Enter Price for 1-50 unit " />
-                            <span asp-validation-for="Price" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Price50" class="form-label fw-semibold"></label>
-                            <input asp-for="Price50" class="form-control" placeholder="Enter Price for 50++ unit " />
-                            <span asp-validation-for="Price50" class="text-danger small"></span>
-                        </div>
-                        <div class="mb-4">
-                            <label asp-for="Price100" class="form-label fw-semibold"></label>
-                            <input asp-for="Price100" class="form-control" placeholder="Enter Price for 100 unit " />
-                            <span asp-validation-for="Price100" class="text-danger small"></span>
-                        </div>
+                                    @* category drop down for foreign key *@
+                                    <div class="mb-4">
+                                        <label asp-for="CategoryId" class="form-label fw-semibold"></label>
+                                        <select asp-for="CategoryId"
+                                                asp-items="ViewBag.CategoryList"
+                                                class="form-select">
+                                            <option disabled selected>-- Select Category --</option>
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                    </div>
+                                    @* //for file choose image  *@
+                                    <div class="mb-4">
+                                        <label asp-for="ImageUrl" class="form-label fw-semibold"></label>
+                                        <input type="file" asp-for="ImageUrl" name="file" class="form-control" />
 
-                        @* category drop down for foreign key *@
-                        <div class="mb-4">
-                            <label asp-for="CategoryId" class="form-label fw-semibold"></label>
-                            <select asp-for="CategoryId"
-                                    asp-items="ViewBag.CategoryList"
-                                    class="form-select">
-                                <option disabled selected>-- Select Category --</option>
-                            </select>
-                            <span asp-validation-for="CategoryId" class="text-danger small"></span>
-                        </div>
-                        @* //for file choose image  *@
-                        <div class="mb-4">
-                            <label asp-for="ImageUrl" class="form-label fw-semibold"></label>
-                            <input type="file" asp-for="ImageUrl" name="file" class="form-control" />
-                            
-                        </div>
-                        <hr />
+                                    </div>
+                                    <hr />
 
-                        <div class="d-flex justify-content-end gap-2">
+                                    <div class="d-flex justify-content-end gap-2">
 
-                            <a asp-controller="Product"
-                               asp-action="List"
-                               class="btn btn-outline">
-                                Cancel
-                            </a>
+                                        <a asp-controller="Product"
+                                           asp-action="List"
+                                           class="btn btn-outline">
+                                            Cancel
+                                        </a>
 
-                            <button type="submit" class="btn btn-primary px-4">
-                                Save Product
-                            </button>
+                                        <button type="submit" class="btn btn-primary px-4">
+                                            Save Product
+                                        </button>
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                @if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <img src="@Model.ImageUrl" width="100px" />
+                                }
+                            </div>
                         </div>
 
                     </form>
