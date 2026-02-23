@@ -161,5 +161,15 @@ namespace BookWeb.Areas.Admin.Controllers
             }
             return View();
         }
+        #region CallAPi
+        [HttpGet]
+        public IActionResult GetAll() 
+        {
+
+            List<Product> objProductlist = _unitOfWork.Product.GetAll().ToList();
+            return Json(new { data = objProductlist });
+        }
+        #endregion
+
     }
 }
