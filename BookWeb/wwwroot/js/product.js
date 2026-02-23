@@ -30,12 +30,55 @@ function loadDataTable() {
                 data: 'id',
                 render: function (data) {
                     return `
-                        <a href="/admin/product/edit/${data}" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="/admin/product/delete/${data}" class="btn btn-sm btn-danger">Delete</a>
-                    `;
+            <div class="btn-group">
+                <a href="/admin/product/edit/${data}" 
+                   class="btn btn-sm btn-primary">Edit</a>
+
+                <button onclick="Delete('/admin/product/delete/${data}')" 
+                        class="btn btn-sm btn-danger">
+                        Delete
+                </button>
+            </div>
+        `;
                 },
                 width: "20%"
             }
         ]
+    });
+}
+function Delete(url) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (data) {
+                    if (data.success) {
+                        dataTable.ajax.reload();
+
+                        Swal.fire(
+                            'Deleted!',
+                            data.message,
+                            'success'
+                        );
+                    }
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            data.message,
+                            'error'
+                        );
+                    }
+                }
+            });
+        }
     });
 }
