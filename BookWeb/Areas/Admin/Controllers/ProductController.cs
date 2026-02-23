@@ -146,21 +146,22 @@ namespace BookWeb.Areas.Admin.Controllers
             return View(obj);
         }
         //For delete 
-        [HttpPost, ActionName("Delete")]
-        public IActionResult Delete(int? id)
-        {
-            Product? product = _unitOfWork.Product.Get(u => u.Id == id);
-            if (product != null)
-            {
-                _unitOfWork.Product.Remove(product);
-                _unitOfWork.Save();
+        //[HttpPost, ActionName("Delete")]
+        //public IActionResult Delete(int? id)
+        //{
+        //    Product? product = _unitOfWork.Product.Get(u => u.Id == id);
+        //    if (product != null)
+        //    {
+        //        _unitOfWork.Product.Remove(product);
+        //        _unitOfWork.Save();
 
-                TempData["success"] = "Product Deleted SuccessFully";
-                return RedirectToAction("List", "Product");
+        //        TempData["success"] = "Product Deleted SuccessFully";
+        //        return RedirectToAction("List", "Product");
 
-            }
-            return View();
-        }
+        //    }
+        //    return View();
+        //}
+        //for data table 
         #region CallAPi
         [HttpGet]
         public IActionResult GetAll() 
@@ -168,6 +169,18 @@ namespace BookWeb.Areas.Admin.Controllers
 
             List<Product> objProductlist = _unitOfWork.Product.GetAll().ToList();
             return Json(new { data = objProductlist });
+        }
+        public IActionResult Delete(int id)
+        {
+            var product = _unitOfWork.Product.Get(u => u.Id == id);
+            if(product == null)
+            {
+                return Json(new { success = "false", message = "error while delating" });
+            }
+            _unitOfWork.Product.Remove(product);
+            _unitOfWork.Save();
+            
+            return Json(new { success = true, message = "delete successl=fully" });
         }
         #endregion
 
