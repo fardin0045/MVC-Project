@@ -22,15 +22,15 @@ function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": { url: '/admin/product/getall' },
         "columns": [
-            { data: 'title', width: "15%" },
+            { data: 'title', width: "25%" },
             { data: 'isbn', width: "15%" },
-            { data: 'listPrice', width: "15%" },
+            { data: 'listPrice', width: "10%" },
             { data: 'categoryId', width: "15%" },
-            {
-                data: 'id',
-                render: function (data) {
-                    return `
-            <div class="btn-group">
+           {
+    data: 'id',
+    render: function (data) {
+        return `
+            <div class="d-felx justify-content-center gap-4">
                 <a href="/admin/product/edit/${data}" 
                    class="btn btn-sm btn-primary">Edit</a>
 
@@ -40,9 +40,9 @@ function loadDataTable() {
                 </button>
             </div>
         `;
-                },
-                width: "20%"
-            }
+    },
+    width: "20%"
+}
         ]
     });
 }

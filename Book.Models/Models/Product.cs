@@ -12,15 +12,15 @@ namespace Book.Models.Models
 
         [Required]
         [DisplayName("Title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        public string Description { get; set; }
-
-        [Required]
-        public string ISBN { get; set; }
+        public string? Description { get; set; }
 
         [Required]
-        public string Author { get; set; }
+        public string? ISBN { get; set; }
+
+        [Required]
+        public string? Author { get; set; }
 
         [DisplayName("List Price")]
         [Range(1, 1000)]
@@ -46,7 +46,7 @@ namespace Book.Models.Models
         public int CategoryId { get; set; }
         [ValidateNever]
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         [ValidateNever]
         public string? ImageUrl { get; set; }
     }
