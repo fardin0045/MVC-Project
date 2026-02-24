@@ -9,9 +9,9 @@ namespace Book.DataAccess.Repository.IRepository
     {
         // T - Category  or any other generic model we want to
         //perform CRUD operations 
-
+        
         //Suppose T - Category
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProperties = null);
 
         //Link operator u=> u.id ==id
         T Get(Expression<Func<T, bool>> filter);
