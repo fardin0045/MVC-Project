@@ -14,7 +14,7 @@ namespace Book.DataAccess.Repository.IRepository
         IEnumerable<T> GetAll(string? includeProperties = null);
 
         //Link operator u=> u.id ==id
-        T Get(Expression<Func<T, bool>> filter);
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
 
         //Add Method 
         void Add(T entity);
